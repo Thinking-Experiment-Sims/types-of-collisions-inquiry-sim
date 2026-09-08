@@ -10,7 +10,6 @@ const probeReadout = $("probeReadout");
 
 const modeSelect = $("collisionMode");
 const activityMode = $("activityMode");
-const themeToggleBtn = $("themeToggleBtn");
 const restitutionInput = $("restitution");
 const restitutionValue = $("restitutionValue");
 const mass1Input = $("mass1");
@@ -109,7 +108,6 @@ window.addEventListener("resize", () => {
 
 modeSelect.addEventListener("change", syncControlState);
 activityMode.addEventListener("change", () => setActivityMode(activityMode.value));
-themeToggleBtn.addEventListener("click", toggleTheme);
 runBtn.addEventListener("click", startTrial);
 pauseBtn.addEventListener("click", togglePause);
 resetBtn.addEventListener("click", resetTrial);
@@ -147,8 +145,7 @@ function setupInputs() {
 }
 
 function restoreSession() {
-  const savedTheme = localStorage.getItem("collision-theme") || "dark";
-  persistTheme(savedTheme);
+  persistTheme("light");
 
   const savedMode = localStorage.getItem("collision-activity") || "inquiry";
   activityMode.value = savedMode;
@@ -159,15 +156,13 @@ function restoreSession() {
 }
 
 function persistTheme(value) {
-  localStorage.setItem("collision-theme", value);
-  document.body.dataset.theme = value;
-  themeToggleBtn.textContent = value === "light" ? "Dark mode" : "Light mode";
+  localStorage.setItem("collision-theme", "light");
+  document.body.dataset.theme = "light";
   render();
 }
 
 function toggleTheme() {
-  const nextTheme = document.body.dataset.theme === "light" ? "dark" : "light";
-  persistTheme(nextTheme);
+  persistTheme("light");
 }
 
 function setActivityMode(mode) {
@@ -997,54 +992,28 @@ function updateProbeVisibility() {
 }
 
 function getThemePalette() {
-  if (bodyHasMode("light")) {
-    return {
-      trackTop: "#7586a6",
-      trackMid: "#5c6d8d",
-      trackBottom: "#3f4d67",
-      rail: "#d9bc7e",
-      tick: "rgba(245, 249, 255, 0.18)",
-      overlay: "#123140",
-      overlayMuted: "#4b6570",
-      cartA: "#e3c96a",
-      cartB: "#8ec7ff",
-      labelInk: "#102433",
-      wheel: "#2b3446",
-      wheelRim: "#d9ba70",
-      arrow: "#1d2f46",
-      graphBg: "#f7fbff",
-      graphAxis: "#c5d7df",
-      graphGrid: "rgba(18, 49, 64, 0.08)",
-      graphText: "#8090a8",
-      graphProbeBg: "#e7f0f5",
-      graphProbeText: "#16364a",
-      lineA: "#c69827",
-      lineB: "#88b8ff",
-    };
-  }
-
   return {
-    trackTop: "#3a4558",
-    trackMid: "#262f3e",
-    trackBottom: "#1a1f2d",
-    rail: "rgba(232, 201, 136, 0.7)",
-    tick: "rgba(232, 201, 136, 0.25)",
-    overlay: "#f1dc9d",
-    overlayMuted: "#c9d1df",
-    cartA: "#b78e36",
-    cartB: "#5a8dd6",
-    labelInk: "#161b24",
-    wheel: "#1a1c26",
-    wheelRim: "#ecddad",
-    arrow: "#e5cc8f",
-    graphBg: "#0f1420",
-    graphAxis: "rgba(216, 183, 103, 0.35)",
-    graphGrid: "rgba(201, 214, 236, 0.12)",
-    graphText: "#96a0ba",
-    graphProbeBg: "#2a2f40",
-    graphProbeText: "#f3e8bf",
-    lineA: "#d8b767",
-    lineB: "#a8c9ff",
+    trackTop: "#6a7e8c",
+    trackMid: "#4b6570",
+    trackBottom: "#344955",
+    rail: "#c8dbe3",
+    tick: "rgba(18, 49, 64, 0.15)",
+    overlay: "#123140",
+    overlayMuted: "#4b6570",
+    cartA: "#d67b19",
+    cartB: "#0f7e9b",
+    labelInk: "#ffffff",
+    wheel: "#1e293b",
+    wheelRim: "#c8dbe3",
+    arrow: "#123140",
+    graphBg: "#ffffff",
+    graphAxis: "#c8dbe3",
+    graphGrid: "rgba(18, 49, 64, 0.07)",
+    graphText: "#4b6570",
+    graphProbeBg: "#eaf4f7",
+    graphProbeText: "#123140",
+    lineA: "#d67b19",
+    lineB: "#0f7e9b",
   };
 }
 
